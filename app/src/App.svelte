@@ -1,65 +1,58 @@
 <script>
-
-	let name = "MAN";
-	let fname = "Firstname"
-	let lname = "Lastname"
-	let num = 0
-	let var1 = {location:["spawn","townhall","armory"],items:[{name:"ironSword",desc:"atk: +10"},{name:"swiftBoots",desc:"agi: +10"}]}
-
-	$:fullName = `${fname}-${lname}`;
-
-	$:{console.log(name);console.log(fullName)};
-
+	import Box from './Box.svelte';
+	import AddForm from './AddNameForm.svelte';
+	import Tabs from './Tabs.svelte';
+	import Stats from './Stats.svelte';
+	let boxBool = true
+	let items = ["Main","Stats","Items"];
+	let itemOn = "Main";
 	let flag = false;
 	const butt1 = () =>{
-		if (flag){name = "MAN";flag=false}
-		else{name = "WOMAN";flag=true}
+		boxBool = !boxBool
 	};
 
-	const butt3 = () =>{
-		num = num + 1;
-	};
-
-	const butt2 = (id) => {
+/* 	const butt2 = (id) => {
 		people = people.filter((x)=>x.id != id)
-	};
+	}; */
 
-	let people = [
+	const butt3 = (e) => {
+		itemOn = e.detail
+	}
+
+/* 	let people = [
     { name: 'yoshi', beltColour: 'black', age: 25, id: 1 },
     { name: 'mario', beltColour: 'orange', age: 45, id: 2 },
     { name: 'luigi', beltColour: 'brown', age: 35, id: 3 }
-	];
+	]; */
 
 </script>
 
+<!-- <Box boxDesc="Wee is weak shit" boxAllowed={boxBool} on:click={butt1}>
+	<AddForm/>
+	<div slot="title"><h1>YooHoo</h1></div>
+</Box> -->
+
 <main>
 
-	{#if num > 10}
-		<p>POG</p>
+	<Tabs {items} {itemOn} on:changedTab={butt3}></Tabs>
+	{#if itemOn === "Main"}
+		<p>yea</p>
+	{:else if itemOn === "Stats"}
+		<Stats/>
+	{:else if itemOn === "Items"}
+		WIP
 	{/if}
-	<h1>Hello {name}</h1>
-	<h2>Num : {num}</h2>
-	<p>{fullName}</p>
-	<button on:click={butt1}>CLICK ME</button>
-	<input type="text" bind:value={name}>
-	<input type="text" bind:value={fname}>
-	<input type="text" bind:value={lname}>
-	<button on:click={butt3}>HIT ME</button>
 
-	{#each people as x (x.id) }
+	<!-- <button on:click={butt1}>mODaLe</button> -->
+<!-- 	{#each people as x (x.id) }
 		<div>
-			<h2>{x.name}</h2>
+			<h1>{x.name}</h1>
 			<p>is also {x.beltColour}</p>
-			{#if x.name==="yoshi"}
-				{#each var1.items as item}
-					<p>Item: {item.name} desc: {item.desc}</p>
-				{/each}
-			{/if}
 			<button on:click={()=>butt2(x.id)}>KILL</button>
 		</div>
 	{:else}
 		<p>Nah</p>
-	{/each}
+	{/each} -->
 
 
 
@@ -76,8 +69,6 @@
 
 	h1 {
 		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
 		font-weight: 100;
 	}
 
