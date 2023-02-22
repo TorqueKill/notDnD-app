@@ -1,19 +1,32 @@
 <script>
-    import { StatStore } from './daddyStore.js';
+    import { ItemStore, StatStore } from './daddyStore.js';
     import { createEventDispatcher } from 'svelte';
 
     
-    let statsLength = 1;
-    let defaultStat = { name: `Stat ${statsLength}`, min: 0, max: 100, default: 100, desc: "Stat Desc" ,id:statsLength};
+   
+    let defaultStat = { name: `Stat 1`, min: 0, max: 100, default: 100, desc: "Stat Desc" ,id:1};
     StatStore.subscribe((data)=>{
-      statsLength = data.length;
-      defaultStat = { name: `Stat ${statsLength+1}`, min: 0, max: 100, default: 100, desc: "Stat Desc",id:statsLength+1 };
+      let newID = nextId(data);
+      defaultStat = { name: `Stat ${newID}`, min: 0, max: 100, default: 100, desc: "Stat Desc",id:newID };
     })
   
     let previewStat = null;
 
+    function isIdInList(id, list) {
+      return list.some(item => item.id === id);
+    }
+
+    function nextId(list){
+      let id = 1;
+      while(isIdInList(id,list)){
+        id = id + 1;
+      }
+      return id;
+    }
+
   
     function preview(stat) {
+      console.log(stat,"PREVIEW 2")
       previewStat = stat;
     }
   
@@ -44,6 +57,20 @@
         return stats;
       });
     }
+
+    const delStat = (id)=>{
+      StatStore.update(data=>{
+        return data.filter(stat => stat.id != id);
+      })
+      ItemStore.update(items=>{
+        let temp = []
+        for (let item in items){
+          temp = items[item].stats.filter(s=>s.id != id)
+          items[item].stats = temp
+        }
+        return items;
+      })
+    }
   
   </script>
   
@@ -53,6 +80,7 @@
       <div class="statBox">
         {#if previewStat === stat}
           <div class="editStat">
+            <button class="delStat" on:click|capture={()=>delStat(stat.id)}>X</button>
             <h1>
               <input type="text" value={previewStat.name} on:input={e => update(previewStat, { key: 'name', value: e.target.value })} />
             </h1>
@@ -91,11 +119,28 @@
 
 
   <style>
+    .delStat{
+      position: absolute;
+      border-radius: 5px;
+      top: 0;
+      right: 0;
+      background-color: #ee9494;
+      color: white;
+      border: none;
+      padding: 5px 5px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .delStat:hover{
+      background-color: #e87575;
+    }
+
     .DisplayStats {
       display: flex;
       flex-wrap: wrap;
       padding: 20px;
       box-sizing: border-box;
+
     }
   
     .AddStat {
@@ -120,9 +165,11 @@
       box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
       width: calc(33% - 10px);
       margin-bottom: 20px;
+      margin-right: 10px;
     }
   
     .viewStat{
+        position: relative;
         text-align:left;
         padding: 20px;
         cursor: pointer;
@@ -130,9 +177,10 @@
     .editStat {
       padding: 20px;
       cursor: pointer;
+      position: relative;
     }
   
-    .viewStat:hover, .editStat:hover {
+    .viewStat:hover,.editStat:hover {
       background-color: #f5f5f5;
     }
   
@@ -179,7 +227,7 @@
     }
   
     .viewStat h1 {
-      margin: 0;
+      margin: 0 ;
       font-size: 20px;
       margin-bottom: 10px;
     }

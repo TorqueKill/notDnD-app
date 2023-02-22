@@ -3,6 +3,9 @@
 	import AddForm from './AddNameForm.svelte';
 	import Tabs from './Tabs.svelte';
 	import Stats from './Stats.svelte';
+	import Options from './SelectOption.svelte';
+	import {StatStore} from './daddyStore.js';
+	import Items from './Items.svelte';
 	let boxBool = true
 	let items = ["Main","Stats","Items"];
 	let itemOn = "Main";
@@ -40,7 +43,7 @@
 	{:else if itemOn === "Stats"}
 		<Stats/>
 	{:else if itemOn === "Items"}
-		WIP
+		<Items/>
 	{/if}
 
 	<!-- <button on:click={butt1}>mODaLe</button> -->

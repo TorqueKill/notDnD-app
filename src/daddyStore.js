@@ -11,11 +11,6 @@ const StatStore = writable([
         id:1
     }
 ]);
-const ItemStore = writable([
-    {
-        name:"Basic Sword",
-        desc:"Atk +10"
-    }
-]);
+const ItemStore = writable([]);
 
 export {StatStore,ItemStore};
