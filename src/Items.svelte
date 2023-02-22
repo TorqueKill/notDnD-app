@@ -1,6 +1,6 @@
 
 <script>
-    import {StatStore,ItemStore} from './daddyStore.js';
+    import {StatStore,ItemStore,PlayerStore} from './daddyStore.js';
 
 
     let previewItem = null;
@@ -85,6 +85,14 @@
       ItemStore.update(data=>{
         return data.filter(item => item.id != id);
       })
+      PlayerStore.update(players=>{
+        let temp = []
+        for (let player in players){
+          temp = players[player].items.filter(i=>i.id != id)
+          players[player].items = temp
+        }
+        return players
+      })
     }
 
     function checkList(stats){
@@ -153,8 +161,6 @@
             {/each}
             </div>
 
-
-            
             <button class ="addStatButt" on:click={()=>handleAddStatClick(item.id)}>Add Stat</button>
 
             <div class="editStatActions">

@@ -72,10 +72,12 @@
 
     function addPlayerDefault(){
         let newID = nextId($PlayerStore)
-        let defaultStat = {name:"DUMMYSTAT",default:100,id:0}
-        if ($StatStore.length>0){defaultStat = $StatStore[0]}
-
-        let defaultPlayer = {id:newID,name:`Player ${newID}`,desc:"Player Desc",stats:[{name:defaultStat.name,value:defaultStat.default,id:defaultStat.id}],items:[]}
+        let defaultStat = {}
+        let defaultPlayer = {id:newID,name:`Player ${newID}`,desc:"Player Desc",stats:[],items:[]}
+        if ($StatStore.length>0){
+            defaultStat = $StatStore[0];
+            defaultPlayer = {id:newID,name:`Player ${newID}`,desc:"Player Desc",stats:[{name:defaultStat.name,value:defaultStat.default,id:defaultStat.id}],items:[]}
+        }
         PlayerStore.update((players)=>{
             players.push(defaultPlayer)
             return players

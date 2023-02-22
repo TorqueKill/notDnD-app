@@ -1,5 +1,5 @@
 <script>
-    import { ItemStore, StatStore } from './daddyStore.js';
+    import { ItemStore, StatStore, PlayerStore } from './daddyStore.js';
     import { createEventDispatcher } from 'svelte';
 
     
@@ -69,6 +69,14 @@
           items[item].stats = temp
         }
         return items;
+      })
+      PlayerStore.update(players=>{
+        let temp = []
+        for (let player in players){
+          temp = players[player].stats.filter(s=>s.id != id)
+          players[player].stats = temp
+        }
+        return players;
       })
     }
   
