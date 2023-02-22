@@ -18,7 +18,7 @@
       let statList = []
       for (let x in statObjs){
         statList.push({name:statObjs[x].name,value:100,id:statObjs[x].id})
-        //break;
+        break;
       }
 
       defaultItem = { name: `Item ${newID}`, desc: "Item Desc",stats:statList,id:newID}
@@ -48,6 +48,7 @@
     function cancel() {
         previewItem = null;
     }
+
   
     function save() {
         ItemStore.update((items) => {
@@ -66,6 +67,12 @@
       });
     }
 
+    function updatePreview(value,key){
+      previewItem[key] = value;
+    }
+
+
+
     function addDefaultItem (){
         ItemStore.update((items)=>{
             items.push(defaultItem)
@@ -80,10 +87,32 @@
       })
     }
 
-
     function checkList(stats){
       let statIDs = getAttributeList(stats,"id")
       let statNames = getAttributeList($StatStore,"id")
+
+    }
+
+    //Dynamically adds the stat and renders the edit section
+    function handleAddStatClick(id){
+      ItemStore.update(items=>{
+        let index = items.findIndex(i=>i.id === id)
+        let temp2 = items[index].stats.push({name:"Health",value:100,id:1})
+
+        return items
+      })
+    }
+
+    function updateStatName(value,id){
+      value = value.split(",")
+      let index = previewItem["stats"].findIndex(s=>s.id === id)
+      previewItem["stats"][index].name = value[0]
+      previewItem["stats"][index].id = Number(value[1])
+    }
+
+    function updateStatValue(value,id){
+      let index = previewItem["stats"].findIndex(s=>s.id === id)
+      previewItem["stats"][index].value = Number(value)
 
     }
 
@@ -102,24 +131,31 @@
           <div class="editStat">
             <button class="delStat" on:click|capture={()=>delItem(item.id)}>X</button>
             <h1>
-              <input class="editInput" type="text" value={previewItem.name} on:input={e => update(previewItem, { key: 'name', value: e.target.value })} />
+              <input class="editInput" type="text" value={previewItem.name} on:input={e => updatePreview(e.target.value,"name") } />
             </h1>
             <p>
-              <input class="editInput" type="text" value={previewItem.desc}  maxlength="80" on:input={e => update(previewItem, { key: 'desc', value: e.target.value })} />
+              <input class="editInput" type="text" value={previewItem.desc}  maxlength="80" on:input={e => updatePreview(e.target.value,"desc")} />
             </p>
+
+
             <div class="selectDiv">
+            <!--for each item, for each stat in that item, display all options-->
             {#each item.stats as stat}
-              <select id="select-option" >
-                  <option value={stat.name}>{stat.name}</option>
-              {#each names as option}
-                  {#if stat.name != option}
-                  <option value={option}>{option}</option>
+              <select id="select-option" on:change={e=>updateStatName(e.target.value,stat.id)}>
+                  <option value={[stat.name,stat.id]}>{stat.name}</option>
+              {#each statObjs as option}
+                  {#if stat.name != option.name}
+                  <option value={[option.name,option.id]}>{option.name}</option>
                   {/if}
               {/each}
               </select>
-              <input class="selectInput" type="number" value={stat.value}/>
+              <input class="selectInput" type="number" value={stat.value} on:input={e=>updateStatValue(e.target.value,stat.id)}/>
             {/each}
             </div>
+
+
+            
+            <button class ="addStatButt" on:click={()=>handleAddStatClick(item.id)}>Add Stat</button>
 
             <div class="editStatActions">
               <button on:click={cancel}>Cancel</button>
@@ -251,7 +287,7 @@
       margin-top: 20px;
     }
   
-    .editStatActions button {
+    .addStatButt,.editStatActions button {
       background-color: #4CAF50;
       color: white;
       border: none;
@@ -264,6 +300,10 @@
     .editStatActions button:hover {
       background-color: #3e8e41;
     }
+    .addStatButt:hover{
+      background-color: #3e8e41;
+    }
+
   
     .viewStat h1 {
       margin: 0 ;
