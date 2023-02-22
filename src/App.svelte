@@ -40,7 +40,7 @@
 
 	<Tabs {items} {itemOn} on:changedTab={butt3}></Tabs>
 	{#if itemOn === "Main"}
-		<p>yea</p>
+		<p>work do be doin</p>
 	{:else if itemOn === "Stats"}
 		<Stats/>
 	{:else if itemOn === "Items"}

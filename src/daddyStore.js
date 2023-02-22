@@ -2,20 +2,46 @@ import { writable } from 'svelte/store';
 
 
 
-let temp ={
+let tempStat1 ={
     name:"Health",
     min:0,
     max:100,
     default:100,
     desc:"health points, when 0 or below, player dies",
     id:1
-} 
-const StatStore = writable([temp]);
-const ItemStore = writable([]);
+}
+
+let tempStat2 ={
+    name:"Atk",
+    min:0,
+    max:10,
+    default:1,
+    desc:"Atk points",
+    id:2
+}
+
+let tempItem1 ={
+    name:"Sword",
+    desc:"does damage lol",
+    stats:[{name:"Atk",value:1,id:2}],
+    id:1
+}
+
+let tempItem2 ={
+    name:"Shield",
+    desc:"idk how to spell sheild",
+    stats:[{name:"Health",value:20,id:1}],
+    id:2
+}
+
+
+
+const StatStore = writable([tempStat1,tempStat2]);
+const ItemStore = writable([tempItem1,tempItem2]);
 const PlayerStore = writable([{
     id:1,
-    name:"Player 1",
-    desc:"Player Desc",
+    name:"Ibn e Jalal",
+    desc:"REEEEEEEEEEE",
     stats:[{name:"Health",value:100,id:1}],
     items:[]
 }]);
