@@ -168,7 +168,7 @@
             <h1>{item.name}</h1>
             <p>Desc: {item.desc}</p>
             {#each item.stats as stat}
-                <p>{stat.name} {stat.value}</p>
+                <p>{stat.name}: {stat.value > 0 ? '+' : ''}{stat.value}</p>
             {/each}
           </div>
         {/if}

@@ -6,8 +6,9 @@
 	import Options from './SelectOption.svelte';
 	import {StatStore} from './daddyStore.js';
 	import Items from './Items.svelte';
+	import Players from './Player.svelte';
 	let boxBool = true
-	let items = ["Main","Stats","Items"];
+	let items = ["Main","Stats","Items","Players"];
 	let itemOn = "Main";
 	let flag = false;
 	const butt1 = () =>{
@@ -44,6 +45,8 @@
 		<Stats/>
 	{:else if itemOn === "Items"}
 		<Items/>
+	{:else if itemOn === "Players"}
+		<Players/>
 	{/if}
 
 	<!-- <button on:click={butt1}>mODaLe</button> -->
