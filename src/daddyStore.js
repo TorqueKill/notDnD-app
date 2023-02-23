@@ -43,7 +43,7 @@ const PlayerStore = writable([{
     name:"Ibn e Jalal",
     desc:"REEEEEEEEEEE",
     stats:[{name:"Health",value:100,id:1},{name:"Atk",value:1,id:2}],
-    items:[]
+    items:[{name:"Shield",id:2}]
 }]);
 
 export {StatStore,ItemStore,PlayerStore};

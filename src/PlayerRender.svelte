@@ -1,5 +1,22 @@
 <script>
     import {StatStore,ItemStore,PlayerStore} from './daddyStore.js';
+    function addStatVal(id,playerItems){
+        let result = 0
+        let playerItemIds = playerItems.map(i=>i.id)
+        let itemList = []
+
+        for (let x in playerItemIds){
+            itemList = itemList.concat($ItemStore.filter(i=>i.id===playerItemIds[x]))
+        }
+
+        for (let x in itemList){
+            let temp  = itemList[x].stats.filter(i=>i.id===id)
+            result = result + Number(temp.map(i=>i.value))
+        }
+
+        return Number(result)
+    }
+
 </script>
 
 <div class="displayPlayers">
@@ -16,7 +33,7 @@
             <div class="statsList">
               {#each player.stats as stat}
                 <div class="statBox">
-                  <p>{stat.name}: <span>{stat.value}</span></p>
+                  <p>{stat.name}: <span>{stat.value + addStatVal(stat.id,player.items)}</span></p>
                 </div>
               {:else}
                 <p class="noStats">No stats :(</p>
