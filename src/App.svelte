@@ -7,6 +7,7 @@
 	import {StatStore} from './daddyStore.js';
 	import Items from './Items.svelte';
 	import Players from './Player.svelte';
+	import PlayerDisplay from './PlayerRender.svelte';
 	let boxBool = true
 	let items = ["Main","Stats","Items","Players"];
 	let itemOn = "Main";
@@ -40,7 +41,7 @@
 
 	<Tabs {items} {itemOn} on:changedTab={butt3}></Tabs>
 	{#if itemOn === "Main"}
-		<p>work do be doin</p>
+		<PlayerDisplay/>
 	{:else if itemOn === "Stats"}
 		<Stats/>
 	{:else if itemOn === "Items"}

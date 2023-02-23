@@ -118,7 +118,7 @@
                     <input class="editInput" value={player.name} on:input={e=>updatePreview(e.target.value,"name")}>
                 </h1>
                 <p>
-                    <input class="editInput" value={player.desc} maxlength="80" on:input={e=>updatePreview(e.target.value,"desc")}>
+                    <input class="editInput" value={player.desc} maxlength="50" on:input={e=>updatePreview(e.target.value,"desc")}>
                 </p>
 
                 <div class="selectDiv">
