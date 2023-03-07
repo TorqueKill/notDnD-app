@@ -8,8 +8,9 @@
 	import Items from './Items.svelte';
 	import Players from './Player.svelte';
 	import PlayerDisplay from './PlayerRender.svelte';
+	import Sync from './Sync.svelte';
 	let boxBool = true
-	let items = ["Main","Stats","Items","Players"];
+	let items = ["Main","Stats","Items","Players","Sync"];
 	let itemOn = "Main";
 	let flag = false;
 	const butt1 = () =>{
@@ -48,6 +49,8 @@
 		<Items/>
 	{:else if itemOn === "Players"}
 		<Players/>
+	{:else if itemOn === "Sync"}
+		<Sync/>
 	{/if}
 
 	<!-- <button on:click={butt1}>mODaLe</button> -->
