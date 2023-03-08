@@ -1,5 +1,10 @@
 import { writable } from 'svelte/store';
 import makeid from './helper'
+/* import Peer from "simple-peer/simplepeer.min.js";
+var peer = new Peer({ initiator: true, trickle: false }) */
+//import Gun from 'gun'
+
+//const db = Gun();
 
 let localID = JSON.parse(localStorage.getItem("localID"))
 if (!localID){
@@ -61,14 +66,18 @@ const StatStore = writable(localStats || [tempStat1,tempStat2]);
 const ItemStore = writable(localItems || [tempItem1,tempItem2]);
 const PlayerStore = writable(localPlayers || [tempPlayer1]);
 
+
 StatStore.subscribe((data)=>{
     localStorage.setItem("localStats",JSON.stringify(data))
+    //db.get(`${localID}_Stats`).put({data:JSON.stringify(data)})
 })
 ItemStore.subscribe((data)=>{
     localStorage.setItem("localItems",JSON.stringify(data))
+    //db.get(`${localID}_Items`).put({data:JSON.stringify(data)})
 })
 PlayerStore.subscribe((data)=>{
     localStorage.setItem("localPlayers",JSON.stringify(data))
+    //db.get(`${localID}_Players`).put({data:JSON.stringify(data)})
 })
 
 
