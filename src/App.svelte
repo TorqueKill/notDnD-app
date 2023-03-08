@@ -4,11 +4,12 @@
 	import Tabs from './Tabs.svelte';
 	import Stats from './Stats.svelte';
 	import Options from './SelectOption.svelte';
-	import {StatStore} from './daddyStore.js';
 	import Items from './Items.svelte';
 	import Players from './Player.svelte';
 	import PlayerDisplay from './PlayerRender.svelte';
 	import Sync from './Sync.svelte';
+	import {StatStore,ItemStore,PlayerStore,Connection} from './daddyStore'
+
 	let boxBool = true
 	let items = ["Main","Stats","Items","Players","Sync"];
 	let itemOn = "Main";
@@ -30,6 +31,27 @@
     { name: 'mario', beltColour: 'orange', age: 45, id: 2 },
     { name: 'luigi', beltColour: 'brown', age: 35, id: 3 }
 	]; */
+
+
+	StatStore.subscribe((data)=>{
+    	console.log($Connection);
+    	let strData = JSON.stringify(data)
+    	localStorage.setItem("localStats",strData)
+    	if ($Connection.isConnected){console.log("stats");$Connection.peer.send(strData)}
+
+	})
+	ItemStore.subscribe((data)=>{
+    	console.log("items");
+    	let strData = JSON.stringify(data)
+    	localStorage.setItem("localItems",JSON.stringify(data))
+    	if ($Connection.isConnected){console.log("items");$Connection.peer.send(strData)}
+	})
+	PlayerStore.subscribe((data)=>{
+    	console.log("players");
+    	let strData = JSON.stringify(data)
+    	localStorage.setItem("localPlayers",JSON.stringify(data))
+    	if ($Connection.isConnected){console.log("players");$Connection.peer.send(strData)}
+	})
 
 </script>
 
