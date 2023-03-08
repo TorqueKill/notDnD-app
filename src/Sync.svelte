@@ -23,7 +23,7 @@
 
 <div class="Sync Comp Body">
     <div class="ID body">
-        {#if $Connection.isConnected}
+        {#if $Connection.isConnected && !location.hash==="#DM"}
             <p>SYNCED UP</p>
         {:else}
             <h1>Sync ID:</h1>
