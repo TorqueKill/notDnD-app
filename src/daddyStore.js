@@ -1,13 +1,18 @@
 import { writable } from 'svelte/store';
 import makeid from './helper'
 import Peer from "simple-peer/simplepeer.min.js";
-var peer = new Peer({ initiator: true, trickle: false })
+var peer = new Peer({ initiator: location.hash==="#DM", trickle: false ,objectMode:true})
 
 //import Gun from 'gun'
 
 //const db = Gun();
 var connected = false
 var localID = 'loading...'
+let clearLocal = location.hash === "#clr"
+
+if (clearLocal){
+    localStorage.clear()
+}
 
 
 let localStats = JSON.parse(localStorage.getItem("localStats"))
@@ -76,6 +81,7 @@ peer.on('signal',data=>{
 })
 peer.on('connect',()=>{
     console.log("DOCKING COMPLETE")
+    console.log(peer);
     Connection.update((item)=>{
         item.isConnected = true
         connected = true
@@ -84,8 +90,18 @@ peer.on('connect',()=>{
 
 })
 peer.on('data',data=>{
+    console.log(data)
     let temp = JSON.parse(data)
-    console.log(temp)
+
+    if (temp.stats){
+        StatStore.set(JSON.parse(temp.stats))
+    }
+    else if (temp.items){
+        ItemStore.set(JSON.parse(temp.items))
+    }
+    else if (temp.players){
+        PlayerStore.set(JSON.parse(temp.players))
+    }
 })
 
 

@@ -17,6 +17,7 @@
 	const butt1 = () =>{
 		boxBool = !boxBool
 	};
+	let isMaster = location.hash === "#DM"
 
 /* 	const butt2 = (id) => {
 		people = people.filter((x)=>x.id != id)
@@ -37,20 +38,20 @@
     	console.log($Connection);
     	let strData = JSON.stringify(data)
     	localStorage.setItem("localStats",strData)
-    	if ($Connection.isConnected){console.log("stats");$Connection.peer.send(strData)}
+    	if ($Connection.isConnected && isMaster){console.log("stats");$Connection.peer.send(JSON.stringify({stats:strData}))}
 
 	})
 	ItemStore.subscribe((data)=>{
     	console.log("items");
     	let strData = JSON.stringify(data)
     	localStorage.setItem("localItems",JSON.stringify(data))
-    	if ($Connection.isConnected){console.log("items");$Connection.peer.send(strData)}
+    	if ($Connection.isConnected && isMaster){console.log("items");$Connection.peer.send(JSON.stringify({items:strData}))}
 	})
 	PlayerStore.subscribe((data)=>{
     	console.log("players");
     	let strData = JSON.stringify(data)
     	localStorage.setItem("localPlayers",JSON.stringify(data))
-    	if ($Connection.isConnected){console.log("players");$Connection.peer.send(strData)}
+    	if ($Connection.isConnected && isMaster){console.log("players");$Connection.peer.send(JSON.stringify({players:strData}))}
 	})
 
 </script>
