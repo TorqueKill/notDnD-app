@@ -18,6 +18,7 @@
 		boxBool = !boxBool
 	};
 	let isMaster = location.hash === "#DM"
+	let connectionInit = false
 
 /* 	const butt2 = (id) => {
 		people = people.filter((x)=>x.id != id)
@@ -53,6 +54,18 @@
     	localStorage.setItem("localPlayers",JSON.stringify(data))
     	if ($Connection.isConnected && isMaster){console.log("players");$Connection.peer.send(JSON.stringify({players:strData}))}
 	})
+	Connection.subscribe((con)=>{
+		if (isMaster && !connectionInit && con.isConnected){
+			let temp = JSON.stringify($StatStore)
+			con.peer.send(JSON.stringify({stats:temp}))
+			temp = JSON.stringify($ItemStore)
+			con.peer.send(JSON.stringify({items:temp}))
+			temp = JSON.stringify($PlayerStore)
+			con.peer.send(JSON.stringify({players:temp}))
+			connectionInit = true
+		}
+	})
+	
 
 </script>
 

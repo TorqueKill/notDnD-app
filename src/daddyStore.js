@@ -1,7 +1,26 @@
 import { writable } from 'svelte/store';
 import makeid from './helper'
 import Peer from "simple-peer/simplepeer.min.js";
-var peer = new Peer({ initiator: location.hash==="#DM", trickle: false ,objectMode:true})
+let isMaster = location.hash==="#DM"
+var peer = new Peer({ initiator: isMaster, 
+    trickle: false ,
+    objectMode:true,
+    config: {
+        iceServers: [
+            {
+                urls: "stun:numb.viagenie.ca",
+                username: "sultan1640@gmail.com",
+                credential: "98376683"
+            },
+            {
+                urls: "turn:numb.viagenie.ca",
+                username: "sultan1640@gmail.com",
+                credential: "98376683"
+            }
+        ]
+    }
+
+})
 
 //import Gun from 'gun'
 
@@ -9,6 +28,7 @@ var peer = new Peer({ initiator: location.hash==="#DM", trickle: false ,objectMo
 var connected = false
 var localID = 'loading...'
 let clearLocal = location.hash === "#clr"
+
 
 if (clearLocal){
     localStorage.clear()

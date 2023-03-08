@@ -2,6 +2,7 @@
     import { onMount } from 'svelte';
     import {PlayerStore,StatStore,ItemStore,Connection} from './daddyStore'
 
+    let isMaster = location.hash === "#DM"
     onMount(()=>{
         console.log($Connection)
     })
@@ -23,7 +24,7 @@
 
 <div class="Sync Comp Body">
     <div class="ID body">
-        {#if $Connection.isConnected && !location.hash==="#DM"}
+        {#if $Connection.isConnected && !isMaster}
             <p>SYNCED UP</p>
         {:else}
             <h1>Sync ID:</h1>
