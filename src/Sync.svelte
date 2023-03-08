@@ -54,7 +54,7 @@
 <div class="Sync Comp Body">
     <div class="ID body">
         {#if connected}
-            <p>DOCKING COMPLETE WOO</p>
+            <p>DOCKING COMPLETE WOOO</p>
         {/if}
         <h1>Sync ID:</h1>
         <div class="truncate">{local_ID}
