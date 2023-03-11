@@ -8,6 +8,11 @@ var peer = new Peer({ initiator: isMaster,
     config: {
         iceServers: [
             {
+                url: 'turn:openrelay.metered.ca:80',
+                credential: 'openrelayproject',
+                username: 'openrelayproject'
+            },
+            {
                 url: 'turn:relay1.expressturn.com:3478?transport=udp',
                 credential: 'NZ6h1IbEvYsyJGWE',
                 username: 'efOWHLW4IA4FS1C780'
