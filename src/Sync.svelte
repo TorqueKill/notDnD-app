@@ -27,7 +27,7 @@
         {#if $Connection.isConnected && !isMaster}
             <p>SYNCED UP</p>
         {:else}
-            <h1>Sync ID:</h1>
+            <h1>[Experimental] Sync ID:</h1>
             <div class="truncate">{$Connection.id}</div>
             <button on:click={() => copyTextToClipboard($Connection.id)}>COPY</button>
             <button on:click={handleSync}>Sync</button>
