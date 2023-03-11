@@ -8,7 +8,12 @@ var peer = new Peer({ initiator: isMaster,
     config: {
         iceServers: [
             {
-                url: 'relay1.expressturn.com:3478',
+                url: 'turn:relay1.expressturn.com:3478?transport=udp',
+                credential: 'NZ6h1IbEvYsyJGWE',
+                username: 'efOWHLW4IA4FS1C780'
+            },
+            {
+                url: 'stun:relay1.expressturn.com:3478',
                 credential: 'NZ6h1IbEvYsyJGWE',
                 username: 'efOWHLW4IA4FS1C780'
             },
