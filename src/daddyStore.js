@@ -7,11 +7,16 @@ var peer = new Peer({ initiator: isMaster,
     objectMode:true,
     config: {
         iceServers: [
-            { urls: 'stun:stun.l.google.com:19302' },
-            { urls: 'stun:stun1.l.google.com:19302' },
-            { urls: 'stun:stun2.l.google.com:19302' },
-            { urls: 'stun:stun3.l.google.com:19302' },
-            { urls: 'stun:stun4.l.google.com:19302' },
+            {
+                url: 'turn:relay.backups.cz',
+                credential: 'webrtc',
+                username: 'webrtc'
+            },
+            {
+                url: 'turn:relay.backups.cz?transport=tcp',
+                credential: 'webrtc',
+                username: 'webrtc'
+            },
             /*
             {
                 url: 'turn:openrelay.metered.ca:80',
