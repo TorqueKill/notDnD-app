@@ -7,6 +7,11 @@ var peer = new Peer({ initiator: isMaster,
     objectMode:true,
     config: {
         iceServers: [
+            {
+                url: 'relay1.expressturn.com:3478',
+                credential: 'NZ6h1IbEvYsyJGWE',
+                username: 'efOWHLW4IA4FS1C780'
+            },
           {
             url: 'turn:numb.viagenie.ca',
             credential: 'muazkh',
