@@ -79,7 +79,24 @@ let tempItem2 ={
 
 let tempPlayer1 = {
     id:1,
-    name:"Ibn e Jalal",
+    name:"Abdul Muiz",
+    desc:"The guy who made this thing",
+    stats:[{name:"Health",value:200,id:1},{name:"Atk",value:5,id:2}],
+    items:[{name:"Shield",id:2},{name:"Sword",id:1}]
+}
+
+let tempPlayer2 = {
+    id:1,
+    name:"Player 2",
+    desc:"Generic Starter Character Description",
+    stats:[{name:"Health",value:100,id:1},{name:"Atk",value:1,id:2}],
+    items:[{name:"Shield",id:2}]
+}
+
+
+let tempPlayer3 = {
+    id:1,
+    name:"Player 3",
     desc:"Generic Starter Character Description",
     stats:[{name:"Health",value:100,id:1},{name:"Atk",value:1,id:2}],
     items:[{name:"Shield",id:2}]
@@ -87,9 +104,10 @@ let tempPlayer1 = {
 
 
 
+
 const StatStore = writable(localStats || [tempStat1,tempStat2]);
 const ItemStore = writable(localItems || [tempItem1,tempItem2]);
-const PlayerStore = writable(localPlayers || [tempPlayer1]);
+const PlayerStore = writable(localPlayers || [tempPlayer1,tempPlayer2,tempPlayer3]);
 const Connection = writable({id:localID,isConnected:connected,peer:peer});
 
 
